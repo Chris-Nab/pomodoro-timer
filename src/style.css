@@ -1,0 +1,65 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+  }
+  
+  .buttons-container{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  body{
+    background-image: url('/public/1332721.png');
+  }
+/* .pomodoro{
+  align-items: center;
+  justify-content: center;
+} */
+/* .modal-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+} */
+.form-group {
+  display: flex;
+  flex-direction: column; /* Ensures label is above input */
+  gap: 4px; /* Adds space between label and input */
+}
+.modal-title{
+  color: white  !important;
+}
+.modal-body, .modal-footer{
+  background-color: black;
+  border-color: black !important;
+}
+.modal-header{
+  background-color: black;
+  border-color: grey !important;
+}
+.modal-footer{
+  background-color: black !important;
+}
+.form-label, .form-text{
+  color: white !important;
+  font-family:Arial, Helvetica, sans-serif;
+}
+h2{
+  color:white !important;
+  font-weight: 400 !important;
+}
+.card{
+  border-color: transparent !important;
+}
+.intervalsCounter{
+  color: white !important;
+}
+img{
+  width: 10%;
+  display: flex;
+  justify-content:left;
+}
