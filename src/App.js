@@ -22,9 +22,15 @@ const bellStop = new Howl({
 
 //media
 function App() {
+const[shortBreak, setShortBreak] = useState(5);
+const[shortBreakValue, setShortBreakValue] = useState(5);
+const[longBreak, setLongBreak] = useState(10);
+const[longBreakValue, setLongBreakValue] = useState(10);
+const[pomodoro, setPomodoro] = useState(25);
 const[isRunning, setIsRunning] = useState(false);
-const[timeMin, setTimeMin] = useState(25);
+const[timeMin, setTimeMin] = useState(pomodoro);
 const[timeSec, setTimeSec] = useState(0);
+const[timeSecValue, setTimeSecValue] = useState(0);
 const[onBreak, setOnBreak] = useState(false);
 const[workInterval, setWorkInterval] = useState(0);
 const[breakInvterval, setBreakInterval] = useState(0);
@@ -32,7 +38,6 @@ const[showSettings, setShowSettings] = useState(false);
 
 const handleShowSettings = () => setShowSettings(true);
 const handleCloseSettings = () => setShowSettings(false);
-
 
 useEffect(() => {
   if(isRunning){
@@ -49,23 +54,22 @@ useEffect(() => {
         setTimeMin(0);
         setTimeSec(0);
         bellStop.play();
-
+  
         if(!onBreak){
           setWorkInterval((workInterval) => workInterval + 1);
           setOnBreak(true);
           setIsRunning(false);
-
-          if(workInterval % 4 === 0){
-            setTimeMin(10);
+          if((workInterval + 1) % 4 === 0){
+            setTimeMin(longBreak);
           }
           else{
-            setTimeMin(5);
+            setTimeMin(shortBreak);
           }
         }
 
-        if(onBreak){
+        else if(onBreak){
           setBreakInterval((breakInvterval) => breakInvterval + 1);
-          setTimeMin(25);
+          setTimeMin(pomodoro);
           setOnBreak(false);
           setIsRunning(false);
         }
@@ -73,7 +77,7 @@ useEffect(() => {
     }, 1000)
     return () => clearInterval(intervalPom);
     }
-  }, [isRunning, timeMin, timeSec])
+  }, [isRunning, timeMin, timeSec, pomodoro, shortBreak, longBreak, workInterval, breakInvterval])
 
   const startTimer = () => {
     bellStart.play();
@@ -86,18 +90,8 @@ useEffect(() => {
   const resetTimer = () =>{
     bellStart.stop();
     setIsRunning(false);
-    setTimeMin(25);
-    setTimeSec(0);
-  }
-  const decreasetimer = () =>{
-    if(timeMin > 0){
-      setTimeMin((timeMin) => timeMin - 1);
-    }
-  }
-  const increaseTimer = () => {
-    if(timeMin < 100){
-      setTimeMin((timeMin) => timeMin + 1);
-    }
+    setTimeMin(pomodoro);
+    setTimeSec(timeSecValue);
   }
   
   //rendered jsx
@@ -112,7 +106,7 @@ useEffect(() => {
             <div className='intervalsCounter tracker d-flex justify-content-center'>
               <img src='./Lofiicon.png'></img> <h3>{workInterval} Break Interval: {breakInvterval}</h3>  
             </div>
-            </Card.Text>>
+            </Card.Text>
             </Card.Body>
             </Card>
         </div>
@@ -137,14 +131,21 @@ useEffect(() => {
               <Form.Group as={Row}  className='pomodoro mb-3 align-items-center' controlId='pomodoro-timer'>
                 <Form.Label column sm={2}>Pomodoro</Form.Label>
                 <Col sm={4}>
-                <Form.Control type='number' size='lg' value={timeMin} min='0' max='100' onChange={(e) => setTimeMin(Number(e.target.value))}>
+                <Form.Control type='number' size='lg' value={pomodoro} min='0' max='100' onChange={(e) => setPomodoro(Number(e.target.value))}>
                 </Form.Control>
                 <Form.Text>Minutes</Form.Text>
                 </Col>
 
+                <Form.Label column sm={2}>Pomodoro</Form.Label>
+                <Col sm={4}>
+                <Form.Control type='number' size='lg' value={timeSecValue} min='0' max='100' onChange={(e) => setTimeSecValue(Number(e.target.value))}>
+                </Form.Control>
+                <Form.Text>Seconds</Form.Text>
+                </Col>
+
                 <Form.Label column sm={2}>Short Break</Form.Label>
                 <Col sm={4}>
-                <Form.Control type='number' size='lg' value={onBreak} min='0' max='100' onChange={(e) => setOnBreak(Number(e.target.value))}>
+                <Form.Control type='number' size='lg' value={shortBreakValue} min='0' max='100' onChange={(e) => setShortBreakValue(Number(e.target.value))}>
                 </Form.Control>
                 <Form.Text>Minutes</Form.Text>
                 </Col>
@@ -152,7 +153,7 @@ useEffect(() => {
               {/* long break form  */}
                   <Form.Label column sm={2}>Long Break</Form.Label>
                   <Col sm={4}>
-                  <Form.Control type='number' size='lg' value={timeMin} min='0' max='100' onChange={(e) => setTimeMin(Number(e.target.value))}>
+                  <Form.Control type='number' size='lg' value={longBreakValue} min='0' max='100' onChange={(e) => setLongBreakValue(Number(e.target.value))}>
                   </Form.Control>
                   <Form.Text>minutes</Form.Text>
                   </Col>
@@ -163,13 +164,15 @@ useEffect(() => {
          
         <Modal.Footer>
           <Button variant='secondary' onClick={handleCloseSettings}>Close</Button>
-          <Button variant='danger' onClick={() => setOnBreak(5) + setTimeMin(25)}>Reset</Button>
-          <Button variant='success' onClick={handleCloseSettings}>Save Changes</Button>
+          <Button variant='danger' onClick={() => setShortBreak(5) + setTimeMin(25) + setLongBreak(10)}>Reset</Button>
+          <Button variant='success' onClick={() => {handleCloseSettings(); setTimeMin(pomodoro); setShortBreak(shortBreakValue); 
+            setLongBreak(longBreakValue); setTimeSec(timeSecValue)}}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
     </div>
   );
   
 }
+
 
 export default App;
