@@ -58,8 +58,14 @@ h2{
 .intervalsCounter{
   color: white !important;
 }
-img{
-  width: 10%;
-  display: flex;
-  justify-content:left;
+
+.workIntervalsCounter{
+  justify-content: space-between;
+}
+.sleepIntervalsCounter{
+  justify-content: flex-end;
+}
+
+.img{
+  border-radius: 10px;
 }

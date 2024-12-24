@@ -10,6 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Placeholder from 'react-bootstrap/Placeholder';
 import Card from 'react-bootstrap/Card';
+import { Container } from 'react-bootstrap';
 
 // clock assests  
 const bellStart =  new Howl ({
@@ -103,8 +104,16 @@ useEffect(() => {
             <h2 className='display-1 align-self-center'>{timeMin}:{timeSec < 10 ? "0" + timeSec : timeSec}</h2>
             <Card.Body>
               <Card.Text>
-            <div className='intervalsCounter tracker d-flex justify-content-center'>
-              <img src='./Lofiicon.png'></img> <h3>{workInterval} Break Interval: {breakInvterval}</h3>  
+              
+              <div className='workIntervalsCounter tracker d-flex justify-content-between px-4'>
+              <div className='d-flex align-items-center'>
+                <img id='workImg' src='./Lofiicon.png' style={{width: '50px', height: '50px'}}></img>
+                <h3 className='ms-2'>{workInterval}</h3>
+              </div>
+              <div className='d-flex align-items-center'>
+                <img src='./narutosleeping.jpg' style={{width: '50px', height: '50px',  borderRadius: '10px'}}></img>
+                <h3 className='ms-2'>{breakInvterval}</h3>
+              </div>
             </div>
             </Card.Text>
             </Card.Body>
