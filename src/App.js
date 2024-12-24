@@ -100,12 +100,12 @@ useEffect(() => {
     <div className='container d-flex justify-content-center align-items-center flex-direction-column'>
        <div className="d-flex align-items-center flex-column">
         <div className='Timer py-4 my-2'>
-          <Card bg='dark' style={{ width: '40rem'}}>
+          <Card bg='dark' style={{ width: '38rem'}}>
             <h2 className='display-1 align-self-center'>{timeMin}:{timeSec < 10 ? "0" + timeSec : timeSec}</h2>
             <Card.Body>
               <Card.Text>
               
-              <div className='workIntervalsCounter tracker d-flex justify-content-between px-4'>
+              <div className='workIntervalsCounter tracker d-flex justify-content-between'>
               <div className='d-flex align-items-center'>
                 <img id='workImg' src='./Lofiicon.png' style={{width: '50px', height: '50px'}}></img>
                 <h3 className='ms-2'>{workInterval}</h3>
